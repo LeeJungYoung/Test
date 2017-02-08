@@ -2,7 +2,9 @@ package org.springframework.samples.mvc.fileupload;
 
 import java.io.IOException;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mvc.extensions.ajax.AjaxUtils;
+import org.springframework.samples.mvc.fileupload.lib.StorageService;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -15,6 +17,13 @@ import org.springframework.web.multipart.MultipartFile;
 @Controller
 @RequestMapping("/fileupload")
 public class FileUploadController {
+	
+	private final StorageService storageService;
+	
+	@Autowired
+    public FileUploadController(StorageService storageService) {
+        this.storageService = storageService;
+    }
 
 	@ModelAttribute
 	public void ajaxAttribute(WebRequest request, Model model) {
@@ -27,6 +36,7 @@ public class FileUploadController {
 
 	@RequestMapping(method=RequestMethod.POST)
 	public void processUpload(@RequestParam MultipartFile file, Model model) throws IOException {
+		storageService.store(file);
 		model.addAttribute("message", "File '" + file.getOriginalFilename() + "' uploaded successfully");
 	}
 	

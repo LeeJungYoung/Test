@@ -34,5 +34,8 @@ dependencies {
 	compile('org.springframework.boot:spring-boot-starter-web')
 	providedRuntime('org.springframework.boot:spring-boot-starter-tomcat')
 	testCompile('org.springframework.boot:spring-boot-starter-test')
-	compile("org.mybatis.spring.boot:mybatis-spring-boot-starter:1.1.1") // Spring Boot에 mybatis lib 제공 runtime('mysql:mysql-connector-java') // MySQL 드라이버 제공
+	compile group: 'org.thymeleaf', name: 'thymeleaf', version: '2.0.5'
+	compile("org.springframework:spring-jdbc:+")
+  	compile("commons-dbcp:commons-dbcp:1.4")
+  	compile("mysql:mysql-connector-java:5.0.8")
 }

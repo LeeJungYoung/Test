@@ -1,24 +1,23 @@
 package com.example;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.bean.Home;
+import com.example.home.HomeMapper;
 
 @RestController	
 public class HomeController {
-
-	// http://cusonar.tistory.com/2
 	
-	@RequestMapping("/{name}/{message}") 
+	@Autowired HomeMapper homeMapper;
+	
+	@RequestMapping("/{name}") 
 	public Home home(
-			@PathVariable String name,
-			@PathVariable String message
+			@PathVariable String name
 			) {
-		Home home = new Home();
-		home.setName(name);
-		home.setMessage(message);
+		Home home = homeMapper.readHome(name);
 		return home;
 	}
 }
